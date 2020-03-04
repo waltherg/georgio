@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Title | georg.io</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="Title" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="summary" />
+<meta property="og:description" content="summary" />
+<link rel="canonical" href="https://georg.io/2014/10/24/Gmail_PDF_HTML_Data_Pipeline.html" />
+<meta property="og:url" content="https://georg.io/2014/10/24/Gmail_PDF_HTML_Data_Pipeline.html" />
+<meta property="og:site_name" content="georg.io" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2014-10-24T00:00:00-05:00" />
+<script type="application/ld+json">
+{"description":"summary","@type":"BlogPosting","headline":"Title","dateModified":"2014-10-24T00:00:00-05:00","datePublished":"2014-10-24T00:00:00-05:00","url":"https://georg.io/2014/10/24/Gmail_PDF_HTML_Data_Pipeline.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://georg.io/2014/10/24/Gmail_PDF_HTML_Data_Pipeline.html"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+  <link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css"><link type="application/atom+xml" rel="alternate" href="https://georg.io/feed.xml" title="georg.io" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"> </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+          delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+          ]}
+        );
+      });
+    </script>
+  
+
+  <script>
+  function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+  }
+  window.onload = wrap_img;
+  </script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function(){
+      // add link icon to anchor tags
+      var elem = document.querySelectorAll(".anchor-link")
+      elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+      // remove paragraph tags in rendered toc (happens from notebooks)
+      var toctags = document.querySelectorAll(".toc-entry")
+      toctags.forEach(e => (e.firstElementChild.innerText = e.firstElementChild.innerText.replace('¶', '')))
+    });
+  </script>
+</head><body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">georg.io</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About Me</a><a class="page-link" href="/search/">Search</a><a class="page-link" href="/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Title</h1><p class="page-description">summary</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2014-10-24T00:00:00-05:00" itemprop="datePublished">
+        Oct 24, 2014
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      10 min read
+    
+</span></p>
+
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-wrap flex-justify-end">
+          <div class="px-2">
+<a href="https://github.com/waltherg/georgio/tree/master/_notebooks/2014-10-24-Gmail_PDF_HTML_Data_Pipeline.ipynb" role="button">
+    <img class="notebook-badge-image" src="/assets/badges/github.svg" alt="View On GitHub">
+</a>
+</div><div class="px-2">
+    <a href="https://colab.research.google.com/github/waltherg/georgio/blob/master/_notebooks/2014-10-24-Gmail_PDF_HTML_Data_Pipeline.ipynb">
+        <img class="notebook-badge-image" src="/assets/badges/colab.svg" alt="Open In Colab"/>
+    </a>
+</div>
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2014-10-24-Gmail_PDF_HTML_Data_Pipeline.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Extracting-Text-From-Heterogeneous-Sources">Extracting Text From Heterogeneous Sources<a class="anchor-link" href="#Extracting-Text-From-Heterogeneous-Sources">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>I consume online media through different apps on different devices (plain browsers, Feedly, Twitter, etc.)
+and to archive interesting reads for future reference I developed a habit of
+e-mailing links to myself.</p>
+<p>Gmail addresses are great for this purpose since an e-mail sent to <em>firstname.lastname+Links@gmail.com</em> still
+ends up in the inbox of <em>firstname.lastname@gmail.com</em>.
+Combining this with <a href="https://support.google.com/mail/answer/6579?hl=en">Gmail filters</a> allows you to set up
+a rule so that all e-mails received on <em>your-gmail-address+Links@gmail.com</em> are archived automatically and
+are assigned a label that you can use to collect all blog posts you want to archive (I use the label <em>Links</em>).</p>
+<p>I already collected a couple of hundred links to blog articles, webpages, pdfs, etc. that I feel compelled to
+do something interesting with (such as topic modelling and automatic summarization).</p>
+<p>In this blog article I describe a pipeline that automatically accesses my Gmail account and extracts the readable
+text from all links I have sent myself over time.
+Of course I am opening a can of worms here since these e-mails come in lots of different
+formats and point to different materials:</p>
+<ul>
+<li>some e-mails are just plain text with one or multiple links</li>
+<li>many e-mails come straight out of Feedly on my iPad which tends to send entire blog articles with html formatting</li>
+<li>many e-mails contain direct links to PDF files which are generally not as easy to parse as plain HTML</li>
+</ul>
+<p>Here I will use a rule-based approach to distinguish between these different formats.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Import-Python-Libraries">Import Python Libraries<a class="anchor-link" href="#Import-Python-Libraries">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>These are the Python imports I will need throughout the pipeline:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">httplib2</span>
+
+<span class="kn">from</span> <span class="nn">apiclient.discovery</span> <span class="kn">import</span> <span class="n">build</span>
+<span class="kn">from</span> <span class="nn">oauth2client.client</span> <span class="kn">import</span> <span class="n">flow_from_clientsecrets</span>
+<span class="kn">from</span> <span class="nn">oauth2client.file</span> <span class="kn">import</span> <span class="n">Storage</span>
+<span class="kn">from</span> <span class="nn">oauth2client.tools</span> <span class="kn">import</span> <span class="n">run</span>
+
+<span class="kn">import</span> <span class="nn">base64</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">from</span> <span class="nn">lxml</span> <span class="kn">import</span> <span class="n">etree</span>
+<span class="kn">from</span> <span class="nn">StringIO</span> <span class="kn">import</span> <span class="n">StringIO</span>
+<span class="kn">import</span> <span class="nn">itertools</span> <span class="k">as</span> <span class="nn">it</span>
+
+<span class="kn">import</span> <span class="nn">urllib2</span>
+<span class="kn">from</span> <span class="nn">pdfminer.pdfinterp</span> <span class="kn">import</span> <span class="n">PDFResourceManager</span><span class="p">,</span> <span class="n">PDFPageInterpreter</span>
+<span class="kn">from</span> <span class="nn">pdfminer.converter</span> <span class="kn">import</span> <span class="n">TextConverter</span>
+<span class="kn">from</span> <span class="nn">pdfminer.layout</span> <span class="kn">import</span> <span class="n">LAParams</span>
+<span class="kn">from</span> <span class="nn">pdfminer.pdfpage</span> <span class="kn">import</span> <span class="n">PDFPage</span>
+<span class="kn">from</span> <span class="nn">cStringIO</span> <span class="kn">import</span> <span class="n">StringIO</span>
+
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
+
+<span class="kn">from</span> <span class="nn">lxml.etree</span> <span class="kn">import</span> <span class="n">fromstring</span>
+
+<span class="kn">import</span> <span class="nn">sqlite3</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">import</span> <span class="nn">zlib</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Set-Up-Access-to-Gmail">Set Up Access to Gmail<a class="anchor-link" href="#Set-Up-Access-to-Gmail">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Google offer an API to many of their services including Gmail.
+The free of charge quota of the Gmail API is very generous and you will essentially not need to worry about
+going over the free allowance.</p>
+<p>To access Gmail through Python you need to followe the steps outlined here
+<a href="https://developers.google.com/gmail/api/quickstart/quickstart-python">here</a>
+(all steps assume that you are logged into your Gmail account in the browser):</p>
+<ul>
+<li>create a new project in the Google Developer Console</li>
+<li>on the page of your new project, make certain to set a product name in the APIs&amp;auth/consent screen tab</li>
+<li>download the JSON from the APIs&amp;auth/credentials tab and store it in a location accessible from this Python script (I called mine <em>client_secret.json</em>)</li>
+</ul>
+<p>Get the Google API Python package</p>
+
+<pre><code>pip install google-api-python-client
+
+</code></pre>
+<p>and the following code (<a href="https://developers.google.com/gmail/api/quickstart/quickstart-python">source</a>) will
+connect to the Gmail API and expose an API resource object pointed to by <code>gmail_service</code>.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Path to the client_secret.json file downloaded from the Developer Console</span>
+<span class="n">CLIENT_SECRET_FILE</span> <span class="o">=</span> <span class="s1">&#39;client_secret.json&#39;</span>
+
+<span class="c1"># Check https://developers.google.com/gmail/api/auth/scopes for all available scopes</span>
+<span class="n">OAUTH_SCOPE</span> <span class="o">=</span> <span class="s1">&#39;https://www.googleapis.com/auth/gmail.readonly&#39;</span>
+
+<span class="c1"># Location of the credentials storage file</span>
+<span class="n">STORAGE</span> <span class="o">=</span> <span class="n">Storage</span><span class="p">(</span><span class="s1">&#39;gmail.storage&#39;</span><span class="p">)</span>
+
+<span class="c1"># Start the OAuth flow to retrieve credentials</span>
+<span class="n">flow</span> <span class="o">=</span> <span class="n">flow_from_clientsecrets</span><span class="p">(</span><span class="n">CLIENT_SECRET_FILE</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="n">OAUTH_SCOPE</span><span class="p">)</span>
+<span class="n">http</span> <span class="o">=</span> <span class="n">httplib2</span><span class="o">.</span><span class="n">Http</span><span class="p">()</span>
+
+<span class="c1"># Try to retrieve credentials from storage or run the flow to generate them</span>
+<span class="n">credentials</span> <span class="o">=</span> <span class="n">STORAGE</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+<span class="k">if</span> <span class="n">credentials</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">credentials</span><span class="o">.</span><span class="n">invalid</span><span class="p">:</span>
+  <span class="n">credentials</span> <span class="o">=</span> <span class="n">run</span><span class="p">(</span><span class="n">flow</span><span class="p">,</span> <span class="n">STORAGE</span><span class="p">,</span> <span class="n">http</span><span class="o">=</span><span class="n">http</span><span class="p">)</span>
+
+<span class="c1"># Authorize the httplib2.Http object with our credentials</span>
+<span class="n">http</span> <span class="o">=</span> <span class="n">credentials</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="n">http</span><span class="p">)</span>
+
+<span class="c1"># Build the Gmail service from discovery</span>
+<span class="n">gmail_service</span> <span class="o">=</span> <span class="n">build</span><span class="p">(</span><span class="s1">&#39;gmail&#39;</span><span class="p">,</span> <span class="s1">&#39;v1&#39;</span><span class="p">,</span> <span class="n">http</span><span class="o">=</span><span class="n">http</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Retrieve-Bodies-of-Relevant-E-Mail-Messages">Retrieve Bodies of Relevant E-Mail Messages<a class="anchor-link" href="#Retrieve-Bodies-of-Relevant-E-Mail-Messages">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The Gmail API resource <code>gmail_service</code> is the only object we need to query to eventually download
+all e-mail bodies of interest.
+The <a href="https://developers.google.com/gmail/api/v1/reference/">Gmail API reference</a> explains how to use the different
+resource types (labels, message lists, messages) that we need to work with.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The Gmail label of interest is known to me as <em>Links</em> but internally Gmail identifies all labels by a unique ID.
+The following code identifies the label ID that corresponds to the label name <em>Links</em>:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">labels</span> <span class="o">=</span> <span class="n">gmail_service</span><span class="o">.</span><span class="n">users</span><span class="p">()</span><span class="o">.</span><span class="n">labels</span><span class="p">()</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="n">userId</span><span class="o">=</span><span class="s1">&#39;me&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">execute</span><span class="p">()[</span><span class="s1">&#39;labels&#39;</span><span class="p">]</span>  <span class="c1"># &#39;me&#39; is the currently logged-in user</span>
+<span class="n">label_id</span> <span class="o">=</span> <span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Links&#39;</span><span class="p">,</span> <span class="n">labels</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;id&#39;</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We can now query <code>gmail_serice</code> for all e-mail messages with the label <em>Links</em> (as identified by <code>label_id</code>).
+The API returns messages in pages of at most 100 messages so that we will need to track a pointer to the
+next page (<code>nextPageToken</code>) until all pages are consumed.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">get_message_ids</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot; Page through all messages in `label_id` &quot;&quot;&quot;</span>
+    <span class="n">next_page</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">next_page</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">gmail_service</span><span class="o">.</span><span class="n">users</span><span class="p">()</span><span class="o">.</span><span class="n">messages</span><span class="p">()</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="n">userId</span><span class="o">=</span><span class="s1">&#39;me&#39;</span><span class="p">,</span> <span class="n">labelIds</span><span class="o">=</span><span class="p">[</span><span class="n">label_id</span><span class="p">],</span> <span class="n">pageToken</span><span class="o">=</span><span class="n">next_page</span><span class="p">)</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">gmail_service</span><span class="o">.</span><span class="n">users</span><span class="p">()</span><span class="o">.</span><span class="n">messages</span><span class="p">()</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="n">userId</span><span class="o">=</span><span class="s1">&#39;me&#39;</span><span class="p">,</span> <span class="n">labelIds</span><span class="o">=</span><span class="p">[</span><span class="n">label_id</span><span class="p">])</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span>
+
+        <span class="n">messages</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;messages&#39;</span><span class="p">)</span>
+        <span class="n">next_page</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;nextPageToken&#39;</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">el</span> <span class="ow">in</span> <span class="n">messages</span><span class="p">:</span>
+            <span class="k">yield</span> <span class="n">el</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">next_page</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">break</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>To extract message bodies we need to distinguish between <code>text/plain</code> and <code>MIME</code> e-mails (to my understanding the latter allows
+embedded images and such).
+When an e-mail is just plain text then the body is found directly in the <code>payload</code>, however when the e-mail is MIME I will
+extract the body as the first of potentially many <code>parts</code>.
+See the <a href="https://developers.google.com/gmail/api/v1/reference/users/messages">message API reference</a> for more detail.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">message_bodies</span><span class="p">():</span>
+    <span class="k">for</span> <span class="n">ctr</span><span class="p">,</span> <span class="n">message_id</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">get_message_ids</span><span class="p">()):</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="n">gmail_service</span><span class="o">.</span><span class="n">users</span><span class="p">()</span><span class="o">.</span><span class="n">messages</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">userId</span><span class="o">=</span><span class="s1">&#39;me&#39;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">message_id</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;full&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span>
+    
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">body</span> <span class="o">=</span> <span class="n">message</span><span class="p">[</span><span class="s1">&#39;payload&#39;</span><span class="p">][</span><span class="s1">&#39;parts&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;body&#39;</span><span class="p">][</span><span class="s1">&#39;data&#39;</span><span class="p">]</span>  <span class="c1"># MIME</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="n">body</span> <span class="o">=</span> <span class="n">message</span><span class="p">[</span><span class="s1">&#39;payload&#39;</span><span class="p">][</span><span class="s1">&#39;body&#39;</span><span class="p">][</span><span class="s1">&#39;data&#39;</span><span class="p">]</span>  <span class="c1"># text/plain</span>
+        
+        <span class="n">body</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64decode</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">body</span><span class="p">),</span> <span class="s1">&#39;-_&#39;</span><span class="p">)</span>
+        
+        <span class="k">yield</span> <span class="n">body</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Parse-Links-(URLs)-to-Material-of-Interest">Parse Links (URLs) to Material of Interest<a class="anchor-link" href="#Parse-Links-(URLs)-to-Material-of-Interest">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>I think of every e-mail with the <em>Links</em> label as a pointer to a resource on the Internet (be it a link to a webpage, PDF, etc.).
+Generally to extract URLs from plain text I will make use of the following regular expression formulated by
+<a href="http://daringfireball.net/2010/07/improved_regex_for_matching_urls">John Gruber</a>:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pattern</span> <span class="o">=</span> <span class="p">(</span><span class="sa">r</span><span class="s1">&#39;(?i)\b((?:[a-z][\w-]+:(?:/{1,3}|[a-z0-9%])|&#39;</span>
+           <span class="sa">r</span><span class="s1">&#39;www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)&#39;</span>
+           <span class="sa">r</span><span class="s1">&#39;(?:[^\s()&lt;&gt;]+|\(([^\s()&lt;&gt;]+|(\([^\s()&lt;&gt;]+\)))*\))&#39;</span>
+           <span class="sa">r</span><span class="s1">&#39;+(?:\(([^\s()&lt;&gt;]+|(\([^\s()&lt;&gt;]+\)))*      \)|&#39;</span>
+           <span class="sa">r</span><span class="s1">&#39;[^\s`!()\[\]</span><span class="si">{}</span><span class="s1">;:</span><span class="se">\&#39;</span><span class="s1">\&quot;.,&lt;&gt;?\«\»\“\”\‘\’]))&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>When I sent myself a link through the Feedly iPad app, Feedly sometimes sends the entire article in the e-mail body
+but it does not do so consistently as far as I can judge.</p>
+<p>Some Feedly-originating e-mail bodies will contain multiple URLs (e.g. links as part of a blog article) but they mostly
+provide a link to the original story as the first URL in the e-mail.</p>
+<p>Other times I may type an e-mail myself in which I copy and paste multiple links to interesting resources - in which
+case I want to extract all URLs from the body and not just the first one.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">is_feedly</span><span class="p">(</span><span class="n">body</span><span class="p">):</span>
+    <span class="k">return</span> <span class="s1">&#39;feedly.com&#39;</span> <span class="ow">in</span> <span class="n">body</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">urls</span><span class="p">():</span>
+    <span class="k">for</span> <span class="n">body</span> <span class="ow">in</span> <span class="n">message_bodies</span><span class="p">():</span>
+        <span class="n">matches</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">body</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">is_feedly</span><span class="p">(</span><span class="n">body</span><span class="p">):</span>
+            <span class="n">match</span> <span class="o">=</span> <span class="n">matches</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">yield</span> <span class="n">match</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># Feedly e-mail: first URL is link to original story</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">match</span> <span class="ow">in</span> <span class="n">matches</span><span class="p">:</span>
+                <span class="k">yield</span> <span class="n">match</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>I noticed a number of URLs in <code>urls()</code> that did not match my expectation - such as links to disqus comments and an online retailer.
+This is where a rule-based filter comes in:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">exclude</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;packtpub.com&#39;</span><span class="p">,</span> <span class="s1">&#39;disqus&#39;</span><span class="p">,</span> <span class="s1">&#39;@&#39;</span><span class="p">,</span> <span class="s1">&#39;list-manage&#39;</span><span class="p">,</span> <span class="s1">&#39;utm_&#39;</span><span class="p">,</span> <span class="s1">&#39;ref=&#39;</span><span class="p">,</span> <span class="s1">&#39;campaign-archive&#39;</span><span class="p">]</span>
+<span class="k">def</span> <span class="nf">urls_filtered</span><span class="p">():</span>
+    <span class="k">for</span> <span class="n">url</span> <span class="ow">in</span> <span class="n">urls</span><span class="p">():</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">([</span><span class="n">pattern</span> <span class="ow">in</span> <span class="n">url</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">for</span> <span class="n">pattern</span> <span class="ow">in</span> <span class="n">exclude</span><span class="p">]):</span>
+            <span class="k">yield</span> <span class="n">url</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>I quite often send myself a link to the Hacker News message thread on an article of interest.</p>
+<p>To extract the URL to the actual article we need to parse the HTML of the Hacker News discussion
+and locate the relevant URL in a <code>td</code> element with <code>class="title"</code> - a rule that works for these particular Hacker News pages.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">is_hn</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+    <span class="k">return</span> <span class="s1">&#39;news.ycombinator.com&#39;</span> <span class="ow">in</span> <span class="n">url</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">parser</span> <span class="o">=</span> <span class="n">etree</span><span class="o">.</span><span class="n">HTMLParser</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">urls_hn_filtered</span><span class="p">():</span>
+    <span class="k">for</span> <span class="n">url</span> <span class="ow">in</span> <span class="n">urls_filtered</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">is_hn</span><span class="p">(</span><span class="n">url</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;item\?id=&#39;</span><span class="p">,</span> <span class="n">url</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">):</span>
+            <span class="k">continue</span>  <span class="c1"># do not keep HN links that do not point to an article</span>
+        <span class="k">elif</span> <span class="n">is_hn</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">status_code</span> <span class="o">!=</span> <span class="mi">200</span><span class="p">:</span>
+                <span class="k">continue</span>  <span class="c1"># download of HN html failed, skip</span>
+            <span class="n">root</span> <span class="o">=</span> <span class="n">etree</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">StringIO</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">text</span><span class="p">),</span> <span class="n">parser</span><span class="p">)</span><span class="o">.</span><span class="n">getroot</span><span class="p">()</span>
+            <span class="n">title</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;.//td[@class=&#39;title&#39;]&quot;</span><span class="p">)</span>
+        
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="n">child</span> <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">title</span><span class="o">.</span><span class="n">getchildren</span><span class="p">()</span> <span class="k">if</span> <span class="n">child</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="s1">&#39;a&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                <span class="k">continue</span>  <span class="c1"># title is None</span>
+
+            <span class="n">story_url</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;href&#39;</span><span class="p">)</span>
+            <span class="k">yield</span> <span class="n">story_url</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">yield</span> <span class="n">url</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Poor memory gets the better of me quite often and I end up sending myself the same link multiple times.
+To avoid downloading the same resource twice and skewing follow-on work with duplicates I will track
+seen URLs with the following code:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">unique_urls</span><span class="p">():</span>
+    <span class="n">seen</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">bool</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">url</span> <span class="ow">in</span> <span class="n">urls_hn_filtered</span><span class="p">():</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="nb">hash</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">seen</span><span class="p">[</span><span class="n">key</span><span class="p">]:</span>
+            <span class="k">continue</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">seen</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">yield</span> <span class="n">url</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Extract-Readable-Text-from-PDF-and-HTML-Documents">Extract Readable Text from PDF and HTML Documents<a class="anchor-link" href="#Extract-Readable-Text-from-PDF-and-HTML-Documents">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now that we have a stream of unique URLs of interesting articles provided by <code>unique_urls</code> we can
+download each of these resources and extract their readable text.</p>
+<p>To extract readable text I will here distinguish between HTML and PDF.
+PDF text extraction is handled with <code>pdfminer</code> and I am making use of
+<a href="http://stackoverflow.com/a/23840353">this code</a> shared in a StackOverflow answer.
+HTML text extraction is handled with <code>lxml</code> and <a href="http://stackoverflow.com/a/23929292">this code snippet</a>.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">pdf_from_url_to_txt</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+    <span class="n">rsrcmgr</span> <span class="o">=</span> <span class="n">PDFResourceManager</span><span class="p">()</span>
+    <span class="n">retstr</span> <span class="o">=</span> <span class="n">StringIO</span><span class="p">()</span>
+    <span class="n">codec</span> <span class="o">=</span> <span class="s1">&#39;utf-8&#39;</span>
+    <span class="n">laparams</span> <span class="o">=</span> <span class="n">LAParams</span><span class="p">()</span>
+    <span class="n">device</span> <span class="o">=</span> <span class="n">TextConverter</span><span class="p">(</span><span class="n">rsrcmgr</span><span class="p">,</span> <span class="n">retstr</span><span class="p">,</span> <span class="n">codec</span><span class="o">=</span><span class="n">codec</span><span class="p">,</span> <span class="n">laparams</span><span class="o">=</span><span class="n">laparams</span><span class="p">)</span>
+    <span class="c1"># Open the url provided as an argument to the function and read the content</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">urllib2</span><span class="o">.</span><span class="n">Request</span><span class="p">(</span><span class="n">url</span><span class="p">))</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="c1"># Cast to StringIO object</span>
+    <span class="n">fp</span> <span class="o">=</span> <span class="n">StringIO</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+    <span class="n">interpreter</span> <span class="o">=</span> <span class="n">PDFPageInterpreter</span><span class="p">(</span><span class="n">rsrcmgr</span><span class="p">,</span> <span class="n">device</span><span class="p">)</span>
+    <span class="n">password</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="n">maxpages</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">caching</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">pagenos</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">page</span> <span class="ow">in</span> <span class="n">PDFPage</span><span class="o">.</span><span class="n">get_pages</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span>
+                                  <span class="n">pagenos</span><span class="p">,</span>
+                                  <span class="n">maxpages</span><span class="o">=</span><span class="n">maxpages</span><span class="p">,</span>
+                                  <span class="n">password</span><span class="o">=</span><span class="n">password</span><span class="p">,</span>
+                                  <span class="n">caching</span><span class="o">=</span><span class="n">caching</span><span class="p">,</span>
+                                  <span class="n">check_extractable</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="n">interpreter</span><span class="o">.</span><span class="n">process_page</span><span class="p">(</span><span class="n">page</span><span class="p">)</span>
+    <span class="n">fp</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="n">device</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="n">string</span> <span class="o">=</span> <span class="n">retstr</span><span class="o">.</span><span class="n">getvalue</span><span class="p">()</span>
+    <span class="n">retstr</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">string</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">resource_text</span><span class="p">():</span>
+    <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;User-Agent&#39;</span><span class="p">:</span> <span class="s1">&#39;Mozilla/5.0 (X11; Linux x86_64; rv:33.0) Gecko/20100101 Firefox/33.0&#39;</span><span class="p">}</span>
+    <span class="n">html_parser</span> <span class="o">=</span> <span class="n">etree</span><span class="o">.</span><span class="n">HTMLParser</span><span class="p">(</span><span class="n">recover</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+    
+    <span class="k">for</span> <span class="n">url</span> <span class="ow">in</span> <span class="n">unique_urls</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">url</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.pdf&#39;</span><span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">text</span> <span class="o">=</span> <span class="n">pdf_from_url_to_txt</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="k">continue</span>  <span class="c1"># something went wrong, just skip ahead</span>
+            
+            <span class="k">yield</span> <span class="n">url</span><span class="p">,</span> <span class="n">text</span>
+            
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="k">continue</span>  <span class="c1"># something went wrong with HTTP GET, just skip ahead</span>
+        
+            <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">status_code</span> <span class="o">!=</span> <span class="mi">200</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="s1">&#39;text/html&#39;</span> <span class="ow">in</span> <span class="n">r</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;content-type&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">):</span>
+                <span class="k">continue</span>
+                
+            <span class="c1"># from: http://stackoverflow.com/a/23929292 and http://stackoverflow.com/a/15830619</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">document</span> <span class="o">=</span> <span class="n">fromstring</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">),</span> <span class="n">html_parser</span><span class="p">)</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="k">continue</span>  <span class="c1"># error parsing document, just skip ahead</span>
+            
+            <span class="k">yield</span> <span class="n">url</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">etree</span><span class="o">.</span><span class="n">XPath</span><span class="p">(</span><span class="s1">&#39;//text()&#39;</span><span class="p">)(</span><span class="n">document</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Consume-Pipeline-and-Store-Extracted-Text">Consume Pipeline and Store Extracted Text<a class="anchor-link" href="#Consume-Pipeline-and-Store-Extracted-Text">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This concludes our pipeline as the generator exposed by <code>readable_text</code> returns our current best representation of
+useful text for each resource.</p>
+<p>All that remains now is to consume this generator and store the extracted text together with the source URL for future reference.</p>
+<p>Since this pipeline consists of a number of failure-prone steps (communicating with APIs, extracting text, etc.) I will also
+want to make certain to catch errors and deal with them appropriately:
+In the generator <code>resource_text</code> I already included a number of places where we just skip ahead to the next resource in case of failure - however failure may still happen and it will be best to catch those errors right here where we consume the pipeline.</p>
+<p>I will be lazy here and just skip all resources that generate an error during text extraction.
+Hence I will consume the generator <code>readable_text</code> until it throws the <code>StopIteration</code> exception and still skip all other exceptions.
+Using the <code>with</code> statement here makes certain that we do not need to worry about closing the file that we write to once <code>StopIteration</code> is thrown.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">text_generator</span> <span class="o">=</span> <span class="n">resource_text</span><span class="p">()</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">db</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;gmail_extracted_text.db&#39;</span><span class="p">)</span>
+    <span class="n">db</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;CREATE TABLE gmail (date text, url text, compression text, extracted blob)&#39;</span><span class="p">)</span>
+    <span class="n">db</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+    <span class="n">db</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="k">except</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">OperationalError</span><span class="p">:</span>
+    <span class="k">pass</span>  <span class="c1"># table gmail already exists</span>
+
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">db</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;gmail_extracted_text.db&#39;</span><span class="p">)</span>
+        
+        <span class="n">url</span><span class="p">,</span> <span class="n">text</span> <span class="o">=</span> <span class="n">text_generator</span><span class="o">.</span><span class="n">next</span><span class="p">()</span>
+        
+        <span class="n">now</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="fm">__str__</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">unicode</span><span class="p">):</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="n">zlib</span><span class="o">.</span><span class="n">compress</span><span class="p">(</span><span class="n">text</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span>  <span class="c1"># to decompress: zlib.decompress(text).decode(&#39;utf-8&#39;)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="n">zlib</span><span class="o">.</span><span class="n">compress</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+        <span class="n">db</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;INSERT INTO gmail VALUES (?, ?, ?, ?)&#39;</span><span class="p">,</span> <span class="p">(</span><span class="n">unicode</span><span class="p">(</span><span class="n">now</span><span class="p">),</span> <span class="n">unicode</span><span class="p">(</span><span class="n">url</span><span class="p">),</span> <span class="sa">u</span><span class="s1">&#39;zlib&#39;</span><span class="p">,</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">Binary</span><span class="p">(</span><span class="n">text</span><span class="p">)))</span>
+        <span class="n">db</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+    <span class="k">except</span> <span class="ne">StopIteration</span><span class="p">:</span>
+        <span class="k">break</span>  <span class="c1"># generator consumed, stop calling .next() on it</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span> <span class="n">e</span>
+        <span class="k">continue</span>  <span class="c1"># some other exception was thrown by the pipeline, just skip ahead</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="n">db</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>  <span class="c1"># tidy up</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In my case the above pipeline extracted text from 571 resources and the resultant database is 7.9 MB in size.</p>
+
+</div>
+</div>
+</div>
+</div>
+
+
+  </div><a class="u-url" href="/2014/10/24/Gmail_PDF_HTML_Data_Pipeline.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">georg.io</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">georg.io</li><li><a class="u-email" href="mailto:contact@georg.io">contact@georg.io</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list">
+  <li><a href="https://github.com/waltherg"><svg class="social svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">waltherg</span></a></li><li><a href="https://www.twitter.com/georgrwalther"><svg class="social svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">georgrwalther</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>My personal blog on tech and data</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
