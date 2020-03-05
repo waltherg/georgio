@@ -40,6 +40,9 @@ baseurl: "" # the subpath of your site, e.g. "/blog".
 email: "contact@georg.io"
 twitter_username: "georgrwalther"
 
+# Social
+linkedin_username: "georgwalther"
+
 # Set this to true to get LaTeX math equation support
 use_math: true
 
