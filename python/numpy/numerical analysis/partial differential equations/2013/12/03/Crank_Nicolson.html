@@ -135,20 +135,20 @@
 
   <div class="post-content e-content" itemprop="articleBody">
     <ul class="section-nav">
-<li class="toc-entry toc-h1"><a href="#The-Crank-Nicolson-Method">The Crank-Nicolson Method¶</a>
+<li class="toc-entry toc-h1"><a href="#The-Crank-Nicolson-Method">The Crank-Nicolson Method </a>
 <ul>
-<li class="toc-entry toc-h2"><a href="#Finite-Difference-Methods">Finite Difference Methods¶</a></li>
-<li class="toc-entry toc-h2"><a href="#The-Crank-Nicolson-Stencil">The Crank-Nicolson Stencil¶</a></li>
-<li class="toc-entry toc-h2"><a href="#Reordering-Stencil-into-Linear-System">Reordering Stencil into Linear System¶</a></li>
-<li class="toc-entry toc-h2"><a href="#A-Crank-Nicolson-Example-in-Python">A Crank-Nicolson Example in Python¶</a>
+<li class="toc-entry toc-h2"><a href="#Finite-Difference-Methods">Finite Difference Methods </a></li>
+<li class="toc-entry toc-h2"><a href="#The-Crank-Nicolson-Stencil">The Crank-Nicolson Stencil </a></li>
+<li class="toc-entry toc-h2"><a href="#Reordering-Stencil-into-Linear-System">Reordering Stencil into Linear System </a></li>
+<li class="toc-entry toc-h2"><a href="#A-Crank-Nicolson-Example-in-Python">A Crank-Nicolson Example in Python </a>
 <ul>
-<li class="toc-entry toc-h3"><a href="#Import-Packages">Import Packages¶</a></li>
-<li class="toc-entry toc-h3"><a href="#Specify-Grid">Specify Grid¶</a></li>
-<li class="toc-entry toc-h3"><a href="#Specify-System-Parameters-and-the-Reaction-Term">Specify System Parameters and the Reaction Term¶</a></li>
-<li class="toc-entry toc-h3"><a href="#Specify-the-Initial-Condition">Specify the Initial Condition¶</a></li>
-<li class="toc-entry toc-h3"><a href="#Create-Matrices">Create Matrices¶</a></li>
-<li class="toc-entry toc-h3"><a href="#Solve-the-System-Iteratively">Solve the System Iteratively¶</a></li>
-<li class="toc-entry toc-h3"><a href="#Plot-the-Numerical-Solution">Plot the Numerical Solution¶</a></li>
+<li class="toc-entry toc-h3"><a href="#Import-Packages">Import Packages </a></li>
+<li class="toc-entry toc-h3"><a href="#Specify-Grid">Specify Grid </a></li>
+<li class="toc-entry toc-h3"><a href="#Specify-System-Parameters-and-the-Reaction-Term">Specify System Parameters and the Reaction Term </a></li>
+<li class="toc-entry toc-h3"><a href="#Specify-the-Initial-Condition">Specify the Initial Condition </a></li>
+<li class="toc-entry toc-h3"><a href="#Create-Matrices">Create Matrices </a></li>
+<li class="toc-entry toc-h3"><a href="#Solve-the-System-Iteratively">Solve the System Iteratively </a></li>
+<li class="toc-entry toc-h3"><a href="#Plot-the-Numerical-Solution">Plot the Numerical Solution </a></li>
 </ul>
 </li>
 </ul>
@@ -173,7 +173,7 @@
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="The-Crank-Nicolson-Method">
-<a class="anchor" href="#The-Crank-Nicolson-Method" aria-hidden="true"><span class="octicon octicon-link"></span></a>The Crank-Nicolson Method<a class="anchor-link" href="#The-Crank-Nicolson-Method">¶</a>
+<a class="anchor" href="#The-Crank-Nicolson-Method" aria-hidden="true"><span class="octicon octicon-link"></span></a>The Crank-Nicolson Method<a class="anchor-link" href="#The-Crank-Nicolson-Method"> </a>
 </h1>
 </div>
 </div>
@@ -196,7 +196,7 @@ $u$ has zero space slope at the boundaries, effectively prohibiting entrance or 
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Finite-Difference-Methods">
-<a class="anchor" href="#Finite-Difference-Methods" aria-hidden="true"><span class="octicon octicon-link"></span></a>Finite Difference Methods<a class="anchor-link" href="#Finite-Difference-Methods">¶</a>
+<a class="anchor" href="#Finite-Difference-Methods" aria-hidden="true"><span class="octicon octicon-link"></span></a>Finite Difference Methods<a class="anchor-link" href="#Finite-Difference-Methods"> </a>
 </h2>
 </div>
 </div>
@@ -229,7 +229,7 @@ $$U(j \Delta x, n \Delta t) \approx u(j \Delta x, n \Delta t)$$<p>As a shorthand
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="The-Crank-Nicolson-Stencil">
-<a class="anchor" href="#The-Crank-Nicolson-Stencil" aria-hidden="true"><span class="octicon octicon-link"></span></a>The Crank-Nicolson Stencil<a class="anchor-link" href="#The-Crank-Nicolson-Stencil">¶</a>
+<a class="anchor" href="#The-Crank-Nicolson-Stencil" aria-hidden="true"><span class="octicon octicon-link"></span></a>The Crank-Nicolson Stencil<a class="anchor-link" href="#The-Crank-Nicolson-Stencil"> </a>
 </h2>
 </div>
 </div>
@@ -257,7 +257,7 @@ $$\frac{U_j^{n+1} - U_j^n}{\Delta t} = \frac{D}{2 \Delta x^2} \left( U_{j+1}^n -
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Reordering-Stencil-into-Linear-System">
-<a class="anchor" href="#Reordering-Stencil-into-Linear-System" aria-hidden="true"><span class="octicon octicon-link"></span></a>Reordering Stencil into Linear System<a class="anchor-link" href="#Reordering-Stencil-into-Linear-System">¶</a>
+<a class="anchor" href="#Reordering-Stencil-into-Linear-System" aria-hidden="true"><span class="octicon octicon-link"></span></a>Reordering Stencil into Linear System<a class="anchor-link" href="#Reordering-Stencil-into-Linear-System"> </a>
 </h2>
 </div>
 </div>
@@ -341,7 +341,7 @@ $$\mathbf{U}^{n+1} = A^{-1} \left( B \mathbf{U}^n + f^n \right).$$
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="A-Crank-Nicolson-Example-in-Python">
-<a class="anchor" href="#A-Crank-Nicolson-Example-in-Python" aria-hidden="true"><span class="octicon octicon-link"></span></a>A Crank-Nicolson Example in Python<a class="anchor-link" href="#A-Crank-Nicolson-Example-in-Python">¶</a>
+<a class="anchor" href="#A-Crank-Nicolson-Example-in-Python" aria-hidden="true"><span class="octicon octicon-link"></span></a>A Crank-Nicolson Example in Python<a class="anchor-link" href="#A-Crank-Nicolson-Example-in-Python"> </a>
 </h2>
 </div>
 </div>
@@ -365,7 +365,7 @@ $$A_u \mathbf{U}^{n+1} = B_u \mathbf{U}^n + \mathbf{f}^n,$$$$A_v \mathbf{V}^{n+1
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Import-Packages">
-<a class="anchor" href="#Import-Packages" aria-hidden="true"><span class="octicon octicon-link"></span></a>Import Packages<a class="anchor-link" href="#Import-Packages">¶</a>
+<a class="anchor" href="#Import-Packages" aria-hidden="true"><span class="octicon octicon-link"></span></a>Import Packages<a class="anchor-link" href="#Import-Packages"> </a>
 </h3>
 </div>
 </div>
@@ -428,7 +428,7 @@ To visualize our numerical solutions, we will use <a href="http://matplotlib.org
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Specify-Grid">
-<a class="anchor" href="#Specify-Grid" aria-hidden="true"><span class="octicon octicon-link"></span></a>Specify Grid<a class="anchor-link" href="#Specify-Grid">¶</a>
+<a class="anchor" href="#Specify-Grid" aria-hidden="true"><span class="octicon octicon-link"></span></a>Specify Grid<a class="anchor-link" href="#Specify-Grid"> </a>
 </h3>
 </div>
 </div>
@@ -495,7 +495,7 @@ This divides our domain into <code>J-1</code> subintervals, each of length <code
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Specify-System-Parameters-and-the-Reaction-Term">
-<a class="anchor" href="#Specify-System-Parameters-and-the-Reaction-Term" aria-hidden="true"><span class="octicon octicon-link"></span></a>Specify System Parameters and the Reaction Term<a class="anchor-link" href="#Specify-System-Parameters-and-the-Reaction-Term">¶</a>
+<a class="anchor" href="#Specify-System-Parameters-and-the-Reaction-Term" aria-hidden="true"><span class="octicon octicon-link"></span></a>Specify System Parameters and the Reaction Term<a class="anchor-link" href="#Specify-System-Parameters-and-the-Reaction-Term"> </a>
 </h3>
 </div>
 </div>
@@ -540,7 +540,7 @@ This divides our domain into <code>J-1</code> subintervals, each of length <code
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Specify-the-Initial-Condition">
-<a class="anchor" href="#Specify-the-Initial-Condition" aria-hidden="true"><span class="octicon octicon-link"></span></a>Specify the Initial Condition<a class="anchor-link" href="#Specify-the-Initial-Condition">¶</a>
+<a class="anchor" href="#Specify-the-Initial-Condition" aria-hidden="true"><span class="octicon octicon-link"></span></a>Specify the Initial Condition<a class="anchor-link" href="#Specify-the-Initial-Condition"> </a>
 </h3>
 </div>
 </div>
@@ -638,7 +638,7 @@ and the green curve is the initial condition for $V$ stored in <code>V</code>.</
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Create-Matrices">
-<a class="anchor" href="#Create-Matrices" aria-hidden="true"><span class="octicon octicon-link"></span></a>Create Matrices<a class="anchor-link" href="#Create-Matrices">¶</a>
+<a class="anchor" href="#Create-Matrices" aria-hidden="true"><span class="octicon octicon-link"></span></a>Create Matrices<a class="anchor-link" href="#Create-Matrices"> </a>
 </h3>
 </div>
 </div>
@@ -733,7 +733,7 @@ construct with
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Solve-the-System-Iteratively">
-<a class="anchor" href="#Solve-the-System-Iteratively" aria-hidden="true"><span class="octicon octicon-link"></span></a>Solve the System Iteratively<a class="anchor-link" href="#Solve-the-System-Iteratively">¶</a>
+<a class="anchor" href="#Solve-the-System-Iteratively" aria-hidden="true"><span class="octicon octicon-link"></span></a>Solve the System Iteratively<a class="anchor-link" href="#Solve-the-System-Iteratively"> </a>
 </h3>
 </div>
 </div>
@@ -942,7 +942,7 @@ our numerical solutions over time.</p>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Plot-the-Numerical-Solution">
-<a class="anchor" href="#Plot-the-Numerical-Solution" aria-hidden="true"><span class="octicon octicon-link"></span></a>Plot the Numerical Solution<a class="anchor-link" href="#Plot-the-Numerical-Solution">¶</a>
+<a class="anchor" href="#Plot-the-Numerical-Solution" aria-hidden="true"><span class="octicon octicon-link"></span></a>Plot the Numerical Solution<a class="anchor-link" href="#Plot-the-Numerical-Solution"> </a>
 </h3>
 </div>
 </div>
